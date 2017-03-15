@@ -11,6 +11,7 @@ namespace Lunaweb\EmailVerification;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -71,6 +72,14 @@ class EmailVerification
      */
     protected $users;
 
+
+    /**
+     * The event dispatcher instance.
+     *
+     * @var \Illuminate\Events\Dispatcher
+     */
+    private $events;
+
     /**
      * The number of minutes that the reset token should be considered valid.
      *
@@ -87,11 +96,12 @@ class EmailVerification
      * @param  int  $expiration
      * @return void
      */
-    public function __construct(UserProvider $users, $key, $expiration)
+    public function __construct(UserProvider $users, Dispatcher $events, $key, $expiration)
     {
         $this->key = $key;
         $this->users = $users;
         $this->expiration = $expiration;
+        $this->events = $events;
     }
 
     /**
@@ -117,7 +127,7 @@ class EmailVerification
             $this->createToken($user, $expiration),
             $expiration
         );
-        event(new EmailVerificationSent($user));
+        $this->events->dispatch(new EmailVerificationSent($user));
 
         return static::VERIFY_LINK_SENT;
     }
@@ -142,7 +152,7 @@ class EmailVerification
 
         $callback($user);
 
-        event(new UserVerified($user));
+        $this->events->dispatch(new UserVerified($user));
 
         return static::VERIFIED;
     }

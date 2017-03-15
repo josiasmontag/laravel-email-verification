@@ -140,13 +140,16 @@ class EmailVerificationTest extends TestCase
 
     protected function getEmailVerification($mocks)
     {
-        return new EmailVerification($mocks['users'], $mocks['key'], $mocks['expiration']);
+        return new EmailVerification($mocks['users'], $mocks['events'], $mocks['key'], $mocks['expiration']);
     }
 
     protected function getMocks()
     {
+        $eventsMock = m::mock('Illuminate\Contracts\Events\Dispatcher');
+        $eventsMock->shouldReceive('dispatch');
         $mocks = [
             'users' => m::mock('Illuminate\Contracts\Auth\UserProvider'),
+            'events' =>  $eventsMock,
             'key' => 'secret',
             'expiration' => 10,
         ];

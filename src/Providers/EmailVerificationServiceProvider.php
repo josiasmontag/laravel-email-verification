@@ -64,6 +64,7 @@ class EmailVerificationServiceProvider extends ServiceProvider
         $this->app->singleton(\Lunaweb\EmailVerification\EmailVerification::class, function ($app) {
             return new EmailVerification(
                 Auth::getProvider(),
+                Auth::getDispatcher(),
                 config('app.key'),
                 config('emailverification.expire', 1440)
             );

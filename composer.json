@@ -1,5 +1,5 @@
 {
-  "name": "josiasmontag/emailverification",
+  "name": "josiasmontag/laravel-email-verifictaion",
   "description": "Laravel Email Verification",
   "license": "MIT",
   "authors": [
@@ -10,7 +10,9 @@
   ],
   "require": {
     "php": ">=5.6.4",
-    "illuminate/support": "~5.4"
+    "illuminate/support": "~5.4",
+    "illuminate/queue": "~5.4",
+    "nesbot/carbon": "~1.20"
   },
   "require-dev": {
     "mockery/mockery": "~0.9",
