@@ -3,7 +3,7 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Email Verifictaion Language Lines
+    | Email Verification Language Lines
     |--------------------------------------------------------------------------
     */
     'done' => 'Your account was activated!',

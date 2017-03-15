@@ -1,9 +1,9 @@
 
 <p align="center">
-<a href="https://travis-ci.org/josiasmontag/laravel-email-verifictaion"><img src="https://travis-ci.org/josiasmontag/laravel-email-verifictaion.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/josiasmontag/laravel-email-verifictaion"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verifictaion/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/josiasmontag/laravel-email-verifictaion"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verifictaion/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/josiasmontag/laravel-email-verifictaion"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verifictaion/license.svg" alt="License"></a>
+<a href="https://travis-ci.org/josiasmontag/laravel-email-verification"><img src="https://travis-ci.org/josiasmontag/laravel-email-verification.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/josiasmontag/laravel-email-verification"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verification/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/josiasmontag/laravel-email-verification"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verification/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/josiasmontag/laravel-email-verification"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verification/license.svg" alt="License"></a>
 </p>
 
 ## Introduction
@@ -23,7 +23,7 @@ The Laravel Email Verification package is built for Laravel 5.4 to easily handle
 
 To get started, use Composer to add the package to your project's dependencies:
 
-    composer require josiasmontag/laravel-email-verifictaion
+    composer require josiasmontag/laravel-email-verification
 
 
 After installing the email verification package, register the `Lunaweb\EmailVerification\Providers\EmailVerificationServiceProvider` in your `config/app.php` configuration file:
@@ -44,7 +44,7 @@ This update will be performed by the migrations included with this package.
 To run the migrations from this package use the following command:
 
 ```
-php artisan migrate --path="/vendor/josiasmontag/laravel-email-verifictaion/resources/migrations"
+php artisan migrate --path="/vendor/josiasmontag/laravel-email-verification/resources/migrations"
 ```
 
 The package tries to guess your `user` table by checking what is set in the auth providers users settings.
