@@ -8,7 +8,10 @@
 namespace Lunaweb\EmailVerification\Exceptions;
 
 
-class UserNotVerifiedException extends \Exception
+
+use Illuminate\Auth\Access\AuthorizationException;
+
+class UserNotVerifiedException extends AuthorizationException
 {
 
     /**
@@ -17,5 +20,7 @@ class UserNotVerifiedException extends \Exception
      * @var string
      */
     protected $message = 'This user is not verified.';
+
+
 
 }
