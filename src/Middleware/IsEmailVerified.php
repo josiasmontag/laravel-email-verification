@@ -8,6 +8,7 @@
 namespace Lunaweb\EmailVerification\Middleware;
 
 
+use Closure;
 use Lunaweb\EmailVerification\Exceptions\UserNotVerifiedException;
 
 class IsEmailVerified
