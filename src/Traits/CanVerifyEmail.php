@@ -25,8 +25,8 @@ trait CanVerifyEmail
     /**
      * Send the email verification notification.
      *
-     * @param  string  $token
-     * @param  int  $expiration
+     * @param  string  $token   The verification mail reset token.
+     * @param  int  $expiration The verification mail expiration date.
      * @return void
      */
     public function sendEmailVerificationNotification($token, $expiration)

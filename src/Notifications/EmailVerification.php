@@ -14,13 +14,13 @@ class EmailVerification extends Notification
 {
 
     /**
-     * The password reset token.
+     * The verification mail reset token.
      *
      * @var string
      */
     public $token;
     /**
-     * The password reset expiration date.
+     * The verification mail expiration date.
      *
      * @var int
      */

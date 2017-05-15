@@ -8,7 +8,7 @@
 
 ## Introduction
 
-The Laravel Email Verification package is built for Laravel 5.4 to easily handle a user verification and validate the e-mail. It is inspired by Laravel's 5.5 [crypto-based password reset functionality](https://github.com/laravel/framework/pull/17499) and the [email verification package by jrean](https://github.com/jrean/laravel-user-verification).
+The Laravel Email Verification package is built for Laravel 5.4 to easily handle a user verification and validate the e-mail. It is inspired by [crypto-based password resets](https://github.com/laravel/framework/pull/17499) and the [email verification package by jrean](https://github.com/jrean/laravel-user-verification).
 
 - [x] Crypto-based email verification. No need to store a temporary token in the database!
 - [x] Event based: No need to override your `register()` method.
@@ -130,9 +130,32 @@ Route::group(['middleware' => ['web', 'auth', 'isEmailVerified']], function () {
 
 The package emits 2 events:
 
-* Lunaweb\EmailVerification\Events\EmailVerificationSent
-* Lunaweb\EmailVerification\Events\UserVerified
+* ``Lunaweb\EmailVerification\Events\EmailVerificationSent``
+* ``Lunaweb\EmailVerification\Events\UserVerified``
 
+### Customize the verification mail
+
+Therefore, override `sendEmailVerificationNotification()` of your User model. Example:
+
+```php
+class User implements CanVerifyEmailContract
+{
+
+    use CanVerifyEmail;
+
+    /**
+     * Send the email verification notification.
+     *
+     * @param  string  $token   The verification mail reset token.
+     * @param  int  $expiration The verification mail expiration date.
+     * @return void
+     */
+    public function sendEmailVerificationNotification($token, $expiration)
+    {
+        $this->notify(new MyEmailVerificationNotification($token, $expiration));
+    }
+}
+```
 
 ### Resend the verification mail
 
