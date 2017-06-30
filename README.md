@@ -14,8 +14,8 @@ The Laravel Email Verification package is built for Laravel 5.4 to easily handle
 - [x] Event based: No need to override your `register()` method.
 - [x] Using the Laravel 5.3 notification system.
 - [x] Allow certain routes for verified users only using the `IsEmailVerified` middleware.
-- [x] Resend the verification email anytime.
-
+- [x] Let the users resend the verification email at anytime.
+- [x] Ready for Localization.
       
 
 ## Configuration
@@ -53,7 +53,7 @@ If this key is not found, the default `App\User` will be used to get the table n
 To customize the migration, publish it with the following command:
 
 ```
-php artisan vendor:publish --provider="Lunaweb\EmailVerification\EmailVerificationServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Lunaweb\EmailVerification\Providers\EmailVerificationServiceProvider" --tag="migrations"
 ```
 
 ### User Model
@@ -91,7 +91,8 @@ class RegisterController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['verify']]);
+          $this->middleware('guest', ['except' => ['verify', 'showResendVerificationEmailForm', 'resendVerificationEmail']]);
+          $this->middleware('auth', ['only' => ['showResendVerificationEmailForm', 'resendVerificationEmail']]);
     }
 
     // ...
@@ -102,10 +103,15 @@ class RegisterController extends Controller
 
 There is no need to override `register()`. As default, the package listens for the `Illuminate\Auth\Events\Registered` event and sends the verification mail. You can disable this behavior using the `listen_registered_event` setting.
 
-The package adds one route vor the email verification link. 
+### Routes
+
+The package adds the following routes.
 
 ```php
-Route::get('register/verify', 'App\Http\Controllers\Auth\RegisterController@verify');
+Route::get('register/verify', 'App\Http\Controllers\Auth\RegisterController@verify')->name('verifyEmailLink');
+Route::get('register/verify/resend', 'App\Http\Controllers\Auth\RegisterController@showResendVerificationEmailForm')->name('showResendVerificationEmailForm');
+Route::post('register/verify/resend', 'App\Http\Controllers\Auth\RegisterController@resendVerificationEmail')->name('resendVerificationEmail');
+
 ```
 
 ### Middleware
@@ -133,6 +139,22 @@ The package emits 2 events:
 * ``Lunaweb\EmailVerification\Events\EmailVerificationSent``
 * ``Lunaweb\EmailVerification\Events\UserVerified``
 
+
+
+### Resend the verification mail
+
+Using the `isEmailVerified` Middleware, the following form is shown to the user. It allows the user to correct his email address and resend the verification mail.
+
+![Screenshot](https://user-images.githubusercontent.com/1945577/27735164-7b316630-5d9e-11e7-86f6-8922a2488cfb.png)
+
+You can manually point the user to this form using the `showResendVerificationEmailForm` route (Default: `register/verify/resend`).
+
+To programmatically resend the verification mail:
+```php
+$this->app->make('Lunaweb\EmailVerification\EmailVerification')->sendVerifyLink($user);
+```
+
+
 ### Customize the verification mail
 
 Therefore, override `sendEmailVerificationNotification()` of your User model. Example:
@@ -157,8 +179,14 @@ class User implements CanVerifyEmailContract
 }
 ```
 
-### Resend the verification mail
-
-```php
-$this->app->make('Lunaweb\EmailVerification\EmailVerification')->sendVerifyLink($user);
+### Customize the resend form
 ```
+php artisan vendor:publish --provider="Lunaweb\EmailVerification\Providers\EmailVerificationServiceProvider" --tag="views"
+```
+The template can be found in `resources/views/vendor/emailverification/resend.blade.php`
+
+### Customize the messages / localization
+```
+php artisan vendor:publish --provider="Lunaweb\EmailVerification\Providers\EmailVerificationServiceProvider" --tag="translations"
+```
+The localization files can be found in `resources/lang/vendor/emailverification`

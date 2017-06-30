@@ -26,7 +26,7 @@ class IsEmailVerified
     public function handle($request, Closure $next)
     {
         if( !is_null($request->user()) && !$request->user()->verified){
-            throw new UserNotVerifiedException;
+            return redirect(route('showResendVerificationEmailForm'));
         }
 
         return $next($request);

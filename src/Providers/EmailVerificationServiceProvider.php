@@ -26,6 +26,16 @@ class EmailVerificationServiceProvider extends ServiceProvider
          */
         $this->loadRoutesFrom(__DIR__ . '/../Http/routes.php');
 
+
+        /*
+         * Views
+         */
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'emailverification');
+        $this->publishes([
+            __DIR__ . '/../../resources/views' => resource_path('views/vendor/emailverification'),
+        ], 'views');
+
+
         /*
          * Migrations
          */

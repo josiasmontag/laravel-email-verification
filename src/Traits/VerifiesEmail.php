@@ -8,6 +8,7 @@
 namespace Lunaweb\EmailVerification\Traits;
 
 use Illuminate\Foundation\Auth\RedirectsUsers;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,6 @@ use Lunaweb\EmailVerification\EmailVerification;
 
 trait VerifiesEmail
 {
-
-
 
 
     /**
@@ -28,62 +27,68 @@ trait VerifiesEmail
      */
     public function verify(Request $request, EmailVerification $emailVerification)
     {
-        $this->validate($request, $this->rules(), $this->validationErrorMessages());
-        // Here we will attempt to reset the user's password. If it is successful we
-        // will update the password on an actual user model and persist it to the
+        $this->validate($request, [
+            'token' => 'required',
+            'email' => 'required|email',
+            'expiration' => 'required|date_format:U'
+        ], []);
+        // Here we will attempt to verify the user. If it is successful we
+        // will update the verified on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
         $response = $emailVerification->verify(
-            $this->credentials($request), function ($user) {
+            $request->only(
+                'email', 'expiration', 'token'
+            ), function ($user) {
             $this->verifiedEmail($user);
         }
         );
 
 
-        // If the password was successfully reset, we will redirect the user back to
+        // If the user was successfully verified, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $response == EmailVerification::VERIFIED
             ? $this->sendVerificationResponse($response)
             : $this->sendVerificationFailedResponse($request, $response);
     }
+
+
     /**
-     * Get the password reset validation rules.
+     * Show form to the user which allows resending the verification mail
      *
-     * @return array
+     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function rules()
+    public function showResendVerificationEmailForm()
     {
-        return [
-            'token' => 'required',
-            'email' => 'required|email',
-            'expiration' => 'required|date_format:U'
-        ];
+        $user = Auth::user();
+        return view('emailverification::resend', ['verified' => $user->verified, 'email' => $user->email]);
     }
+
     /**
-     * Get the password reset validation error messages.
+     * Resend the verification mail
      *
-     * @return array
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function validationErrorMessages()
+    public function resendVerificationEmail(Request $request)
     {
-        return [];
+        $this->validate($request, [
+            'email' => 'required|email|max:255'
+        ]);
+        $user = Auth::user();
+        $user->email = $request->email;
+        $user->save();
+
+        $sent = resolve('Lunaweb\EmailVerification\EmailVerification')->sendVerifyLink($user);
+        Session::flash($sent == EmailVerification::VERIFY_LINK_SENT ? 'success' : 'error', trans($sent));
+
+        return redirect($this->redirectPath());
     }
-    /**
-     * Get the email verification credentials from the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    protected function credentials(Request $request)
-    {
-        return $request->only(
-            'email', 'expiration', 'token'
-        );
-    }
+
     /**
      * Store the user's verification
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
      * @return void
      */
     protected function verifiedEmail($user)
@@ -93,28 +98,29 @@ trait VerifiesEmail
         ])->save();
         $this->guard()->login($user);
     }
+
     /**
-     * Get the response for a successful password reset.
+     * Get the response for a successful user verification.
      *
-     * @param  string  $response
+     * @param  string $response
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendVerificationResponse($response)
     {
         return redirect($this->redirectPath())->with('success', trans($response));
     }
+
     /**
-     * Get the response for a failed password reset.
+     * Get the response for a failed user verification.
      *
      * @param  \Illuminate\Http\Request
-     * @param  string  $response
+     * @param  string $response
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendVerificationFailedResponse(Request $request, $response)
     {
         return redirect($this->redirectPath())->with('error', trans($response));
     }
-
 
 
 }
