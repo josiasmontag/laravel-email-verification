@@ -2,7 +2,7 @@
 
 
 // Verification
-Route::get('register/verify', 'App\Http\Controllers\Auth\RegisterController@verify');
+Route::get('register/verify', 'App\Http\Controllers\Auth\RegisterController@verify')->name('verifyEmailLink');
 
 
 
