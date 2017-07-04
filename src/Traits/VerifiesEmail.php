@@ -72,10 +72,11 @@ trait VerifiesEmail
      */
     public function resendVerificationEmail(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email|max:255'
-        ]);
         $user = Auth::user();
+
+        $this->validate($request, [
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id
+        ]);
         $user->email = $request->email;
         $user->save();
 
