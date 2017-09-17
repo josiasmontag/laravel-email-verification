@@ -8,7 +8,7 @@
 
 ## Introduction
 
-The Laravel Email Verification package is built for Laravel 5.4 to easily handle a user verification and validate the e-mail. It is inspired by [crypto-based password resets](https://github.com/laravel/framework/pull/17499) and the [email verification package by jrean](https://github.com/jrean/laravel-user-verification).
+The Laravel Email Verification package is built for Laravel 5.4/5.5 to easily handle a user verification and validate the e-mail. It is inspired by [crypto-based password resets](https://github.com/laravel/framework/pull/17499) and the [email verification package by jrean](https://github.com/jrean/laravel-user-verification).
 
 - [x] Crypto-based email verification. No need to store a temporary token in the database!
 - [x] Event based: No need to override your `register()` method.
@@ -26,7 +26,7 @@ To get started, use Composer to add the package to your project's dependencies:
     composer require josiasmontag/laravel-email-verification
 
 
-After installing the email verification package, register the `Lunaweb\EmailVerification\Providers\EmailVerificationServiceProvider` in your `config/app.php` configuration file:
+In Laravel 5.5 the service provider will automatically get registered. In older versions of the framework just register the `Lunaweb\EmailVerification\Providers\EmailVerificationServiceProvider` in your `config/app.php` configuration file:
 
 ```php
 'providers' => [
