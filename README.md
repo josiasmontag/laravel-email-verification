@@ -81,7 +81,6 @@ The package offers a `VerifiesEmail` trait for your `RegisterController`. You mu
 ```php
 
 use Lunaweb\EmailVerification\Traits\VerifiesEmail;
-use Lunaweb\User\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {
