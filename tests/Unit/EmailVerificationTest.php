@@ -1,11 +1,11 @@
 <?php
 /**
- * (c) Lunaweb Ltd. - Josias Montag
- * Date: 14.03.17
- * Time: 12:55
+ * Created by Josias Montag
+ * Date: 06.01.18 15:43
+ * Mail: josias@montag.info
  */
 
-namespace Tests;
+namespace Lunaweb\EmailVerification\Tests\Unit;
 
 use Mockery as m;
 use Carbon\Carbon;
