@@ -31,8 +31,6 @@ class RegistrationTest extends TestCase
 
     public function testRegistration() {
 
-        $this->withoutExceptionHandling();
-
 
         $response = $this->json('POST', '/register', [
             'email' => 'josias@montag.info',

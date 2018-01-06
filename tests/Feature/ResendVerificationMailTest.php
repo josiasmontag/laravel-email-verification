@@ -31,8 +31,6 @@ class ResendVerificationMailTest extends TestCase
 
     public function testResend() {
 
-        $this->withoutExceptionHandling();
-
 
         $user =  User::create(['email' => 'test@user.com', 'verified' => false]);
 
