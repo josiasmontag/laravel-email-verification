@@ -61,6 +61,7 @@ class EmailVerification extends Notification
         $email = $notifiable->getEmailForEmailVerification();
         $link = route('verifyEmailLink', ['email' => $email, 'expiration' => $this->expiration, 'token' => $this->token]);
         return (new MailMessage)
+            ->subject(trans('emailverification::messages.resend.title'))
             ->line(trans('emailverification::messages.email.welcome'))
             ->line(trans('emailverification::messages.email.instructions'))
             ->action(trans('emailverification::messages.email.action'), $link);
