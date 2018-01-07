@@ -44,7 +44,7 @@ This update will be performed by the migrations included with this package.
 To run the migrations from this package use the following command:
 
 ```
-php artisan migrate --path="/vendor/josiasmontag/laravel-email-verification/resources/migrations"
+php artisan migrate --path="/vendor/josiasmontag/laravel-email-verification/database/migrations"
 ```
 
 The package tries to guess your `user` table by checking what is set in the auth providers users settings.
