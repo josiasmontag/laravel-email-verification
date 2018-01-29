@@ -39,7 +39,7 @@ trait VerifiesEmail
             $request->only(
                 'email', 'expiration', 'token'
             ), function ($user) {
-            $this->verifiedEmail($user);
+            return $this->verifiedEmail($user);
         }
         );
 
@@ -90,14 +90,20 @@ trait VerifiesEmail
      * Store the user's verification
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
-     * @return void
+     * @return boolean
      */
     protected function verifiedEmail($user)
     {
-        $user->forceFill([
-            'verified' => true
-        ])->save();
         $this->guard()->login($user);
+
+        if(!(boolean)$user->verified) {
+            $user->forceFill([
+                'verified' => true
+            ])->save();
+            return true;
+        }
+
+        return false;
     }
 
     /**

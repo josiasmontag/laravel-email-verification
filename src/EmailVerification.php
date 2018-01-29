@@ -150,9 +150,11 @@ class EmailVerification
             return $user;
         }
 
-        $callback($user);
+        if($callback($user)) {
 
-        $this->events->dispatch(new UserVerified($user));
+            $this->events->dispatch(new UserVerified($user));
+
+        }
 
         return static::VERIFIED;
     }

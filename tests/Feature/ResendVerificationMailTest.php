@@ -57,7 +57,7 @@ class ResendVerificationMailTest extends TestCase
 
         $user->refresh();
         $this->assertTrue((boolean)$user->verified);
-        $this->assertTrue($user->email === 'new@email.info');
+        $this->assertEquals('new@email.info', $user->email);
 
 
     }
