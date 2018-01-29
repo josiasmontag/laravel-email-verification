@@ -8,7 +8,6 @@
 namespace Lunaweb\EmailVerification\Tests\Feature;
 
 
-
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Lunaweb\EmailVerification\Events\UserVerified;
@@ -16,8 +15,6 @@ use Lunaweb\EmailVerification\Notifications\EmailVerification;
 
 class RegistrationTest extends TestCase
 {
-
-
 
 
     public function setUp()
@@ -28,11 +25,11 @@ class RegistrationTest extends TestCase
         Notification::fake();
 
 
-
     }
 
 
-    public function testRegistration() {
+    public function testRegistration()
+    {
 
 
         $response = $this->json('POST', '/register', [
@@ -68,13 +65,13 @@ class RegistrationTest extends TestCase
     }
 
 
-
-    public function testEmitsUserVerifedEventOnce() {
+    public function testEmitsUserVerifedEventOnce()
+    {
 
 
         Event::fake();
 
-        $user =  User::create(['email' => 'test@user.com', 'verified' => false]);
+        $user = User::create(['email' => 'test@user.com', 'verified' => false]);
 
         app(\Lunaweb\EmailVerification\EmailVerification::class)->sendVerifyLink($user);
 
@@ -92,20 +89,16 @@ class RegistrationTest extends TestCase
         $this->assertTrue((boolean)$user->fresh()->verified);
 
 
-
         // Open activation URL second time
 
         $this->get($activationUrl);
 
-        Event::assertDispatchedTimes(UserVerified::class, 1);
+        $this->assertCount(1, Event::dispatched(UserVerified::class));
 
         $this->assertTrue((boolean)$user->fresh()->verified);
 
 
-
-
     }
-
 
 
 }
