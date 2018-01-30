@@ -45,7 +45,7 @@ class RegistrationTest extends TestCase
             [$user], EmailVerification::class
         );
 
-        $this->assertFalse((boolean)$user->verified);
+        $this->assertFalse($user->verified);
 
         $notification = Notification::sent($user, EmailVerification::class)->first();
 
@@ -59,7 +59,7 @@ class RegistrationTest extends TestCase
         $response->assertSessionHas('success');
 
         $user->refresh();
-        $this->assertTrue((boolean)$user->verified);
+        $this->assertTrue($user->verified);
 
 
     }
@@ -86,7 +86,7 @@ class RegistrationTest extends TestCase
             return $e->user->is($user);
         });
 
-        $this->assertTrue((boolean)$user->fresh()->verified);
+        $this->assertTrue($user->fresh()->verified);
 
 
         // Open activation URL second time
@@ -95,7 +95,7 @@ class RegistrationTest extends TestCase
 
         $this->assertCount(1, Event::dispatched(UserVerified::class));
 
-        $this->assertTrue((boolean)$user->fresh()->verified);
+        $this->assertTrue($user->fresh()->verified);
 
 
     }

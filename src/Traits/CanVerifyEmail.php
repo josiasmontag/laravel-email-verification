@@ -34,4 +34,14 @@ trait CanVerifyEmail
         $this->notify(new EmailVerificationNotification($token, $expiration));
     }
 
+    /**
+     * Get the verified attribute
+     *
+     * @return bool
+     */
+    public function getVerifiedAttribute($verified)
+    {
+        return (bool) $verified;
+    }
+
 }

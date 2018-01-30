@@ -96,7 +96,7 @@ trait VerifiesEmail
     {
         $this->guard()->login($user);
 
-        if(!(boolean)$user->verified) {
+        if(!$user->verified) {
             $user->forceFill([
                 'verified' => true
             ])->save();

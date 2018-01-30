@@ -44,7 +44,7 @@ class ResendVerificationMailTest extends TestCase
             [$user], EmailVerification::class
         );
 
-        $this->assertFalse((boolean)$user->verified);
+        $this->assertFalse($user->verified);
 
         $notification = Notification::sent($user, EmailVerification::class)->first();
 
@@ -56,7 +56,7 @@ class ResendVerificationMailTest extends TestCase
         $response->assertSessionHas('success');
 
         $user->refresh();
-        $this->assertTrue((boolean)$user->verified);
+        $this->assertTrue($user->verified);
         $this->assertEquals('new@email.info', $user->email);
 
 
