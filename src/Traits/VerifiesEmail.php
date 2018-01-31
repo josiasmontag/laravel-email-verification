@@ -32,7 +32,7 @@ trait VerifiesEmail
         ], []);
         
         );
-
+    };
 
     /**
      * Verifies the given user's email.
