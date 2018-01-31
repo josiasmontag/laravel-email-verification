@@ -31,7 +31,6 @@ trait VerifiesEmail
             'expiration' => 'required|date_format:U'
         ], []);
         
-        );
     };
 
     /**
