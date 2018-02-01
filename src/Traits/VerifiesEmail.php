@@ -17,6 +17,21 @@ use Lunaweb\EmailVerification\EmailVerification;
 trait VerifiesEmail
 {
 
+    /**
+     * Validate the request params
+     *
+     * @param \Illuminate\Http\Request|Request $request
+     * @return void
+     */
+    protected function validateVerificationRequest(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required',
+            'email' => 'required|email',
+            'expiration' => 'required|date_format:U'
+        ], []);
+        
+    }
 
     /**
      * Verifies the given user's email.
@@ -27,11 +42,8 @@ trait VerifiesEmail
      */
     public function verify(Request $request, EmailVerification $emailVerification)
     {
-        $this->validate($request, [
-            'token' => 'required',
-            'email' => 'required|email',
-            'expiration' => 'required|date_format:U'
-        ], []);
+        $this->validateVerificationRequest($request);
+        
         // Here we will attempt to verify the user. If it is successful we
         // will update the verified on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
