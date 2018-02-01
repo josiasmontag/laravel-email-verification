@@ -62,10 +62,11 @@ The model representing the `User` must implement the `CanVerifyEmail` interface.
 
 
 ```php
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lunaweb\EmailVerification\Traits\CanVerifyEmail;
 use Lunaweb\EmailVerification\Contracts\CanVerifyEmail as CanVerifyEmailContract;
 
-class User implements CanVerifyEmailContract
+class User extends Authenticatable implements CanVerifyEmailContract
 {
 
     use CanVerifyEmail;
