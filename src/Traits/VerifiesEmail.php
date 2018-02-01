@@ -23,7 +23,7 @@ trait VerifiesEmail
      * @param \Illuminate\Http\Request|Request $request
      * @return void
      */
-    public function validateVerificationRequest(Request $request)
+    protected function validateVerificationRequest(Request $request)
     {
         $this->validate($request, [
             'token' => 'required',
