@@ -18,8 +18,8 @@ return [
         'submit' => 'Aktivierungslink senden'
     ],
     'email' => [
-        'welcome' => 'Vielen Dank für Ihre Registierung!',
+        'welcome' => 'Vielen Dank für Ihre Registrierung!',
         'instructions' => 'Um die Registrierung abzuschließen und Ihren Account zu aktivieren, nutzen Sie bitte den folgenden Link:',
-        'action' => 'Registierung abschließen',
+        'action' => 'Registrierung abschließen',
     ],
 ];
