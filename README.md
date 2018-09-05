@@ -8,7 +8,7 @@
 
 ## Introduction
 
-The Laravel Email Verification package is built for Laravel 5.4/5.5/5.6 to easily handle a user verification and validate the e-mail. It is inspired by [crypto-based password resets](https://github.com/laravel/framework/pull/17499) and the [email verification package by jrean](https://github.com/jrean/laravel-user-verification).
+The Laravel Email Verification package is built for Laravel 5.4 and later to easily handle a user verification and validate the e-mail. It is inspired by [crypto-based password resets](https://github.com/laravel/framework/pull/17499) and the [email verification package by jrean](https://github.com/jrean/laravel-user-verification).
 
 - [x] Crypto-based email verification. No need to store a temporary token in the database!
 - [x] Event based: No need to override your `register()` method.
