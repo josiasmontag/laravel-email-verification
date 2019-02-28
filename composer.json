@@ -9,17 +9,17 @@
     }
   ],
   "require": {
-    "php": ">=5.6.4",
-    "illuminate/support": "5.4.*|5.5.*|5.6.*|5.7.*",
-    "illuminate/queue": "5.4.*|5.5.*|5.6.*|5.7.*",
-    "illuminate/auth": "5.4.*|5.5.*|5.6.*|5.7.*",
-    "nesbot/carbon": "~1.20"
+    "php": ">=7.1.0",
+    "illuminate/support": "5.4.*|5.5.*|5.6.*|5.7.*|5.8.*",
+    "illuminate/queue": "5.4.*|5.5.*|5.6.*|5.7.*|5.8.*",
+    "illuminate/auth": "5.4.*|5.5.*|5.6.*|5.7.*|5.8.*",
+    "nesbot/carbon": "^1.20|2.0"
   },
   "require-dev": {
-    "mockery/mockery": "~0.9",
+    "mockery/mockery": "1.2",
     "phpunit/phpunit": "^5.7|6.2|^7.0",
-    "orchestra/testbench": "~3.4.2|^3.5.0",
-    "laravel/framework": "5.4.*|5.5.*|5.6.*|5.7.*"
+    "orchestra/testbench": "~3.4.0|^3.5.0|^3.6.0|^3.7.0|^3.8.0",
+    "laravel/framework": "5.4.*|5.5.*|5.6.*|5.7.*|5.8.*"
   },
   "autoload": {
     "psr-4": {
