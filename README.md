@@ -1,10 +1,11 @@
-
 <p align="center">
 <a href="https://travis-ci.org/josiasmontag/laravel-email-verification"><img src="https://travis-ci.org/josiasmontag/laravel-email-verification.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/josiasmontag/laravel-email-verification"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verification/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/josiasmontag/laravel-email-verification"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verification/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/josiasmontag/laravel-email-verification"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verification/license.svg" alt="License"></a>
 </p>
+
+> ⚠️ **Deprecation Warning**: This package is still maintained but it does not get any new features. For new projects I recommend using Laravel's [built in email verification](https://laravel.com/docs/5.8/verification).
 
 ## Introduction
 
