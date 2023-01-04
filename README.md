@@ -5,7 +5,7 @@
 <a href="https://packagist.org/packages/josiasmontag/laravel-email-verification"><img src="https://poser.pugx.org/josiasmontag/laravel-email-verification/license.svg" alt="License"></a>
 </p>
 
-> ⚠️ **Deprecation Warning**: This package is still maintained but it does not get any new features. For new projects I recommend using Laravel's [built in email verification](https://laravel.com/docs/5.8/verification).
+> ⚠️ **Deprecation Warning**: This package is deprecated. I recommend using Laravel's [built in email verification](https://laravel.com/docs/5.8/verification).
 
 ## Introduction
 
